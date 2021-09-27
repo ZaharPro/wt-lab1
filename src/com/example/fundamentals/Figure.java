@@ -1,22 +1,22 @@
 package com.example.fundamentals;
 
-import com.example.fundamentals.utils.Input;
 import com.example.fundamentals.utils.Numbers;
 
-import java.util.Scanner;
-import java.util.concurrent.CancellationException;
-
 public class Figure {
-    public static boolean contains(double yMin, double yMax,
-                                   double x1, double x2,
-                                   double x, double y) {
-        return contains(yMin, 0, yMax, -x1, x1, -x2, x2, x, y);
-    }
+    private final double yMin;
+    private final double yDelimiter;
+    private final double yMax;
 
-    public static boolean contains(double yMin, double yDelimiter, double yMax,
-                                   double xMin1, double xMax1,
-                                   double xMin2, double xMax2,
-                                   double x, double y) {
+    private final double xMin1;
+    private final double xMax1;
+
+    private final double xMin2;
+    private final double xMax2;
+
+    public Figure(double yMin, double yMax, double x1, double x2) {
+        this(yMin, 0, yMax, -x1, x1, -x2, x2);
+    }
+    public Figure(double yMin, double yDelimiter, double yMax, double xMin1, double xMax1, double xMin2, double xMax2) {
         Numbers.requireNonNaN(yMin);
         Numbers.requireNonNaN(yDelimiter);
         Numbers.requireNonNaN(yMax);
@@ -26,14 +26,23 @@ public class Figure {
         Numbers.requireNonNaN(xMin2);
         Numbers.requireNonNaN(xMax2);
 
-        Numbers.requireNonNaN(x);
-        Numbers.requireNonNaN(y);
-
         Numbers.requireMinMax(yMin, yDelimiter);
         Numbers.requireMinMax(yDelimiter, yMax);
 
         Numbers.requireMinMax(xMin1, xMax1);
         Numbers.requireMinMax(xMin2, xMax2);
+        this.yMin = yMin;
+        this.yDelimiter = yDelimiter;
+        this.yMax = yMax;
+        this.xMin1 = xMin1;
+        this.xMax1 = xMax1;
+        this.xMin2 = xMin2;
+        this.xMax2 = xMax2;
+    }
+
+    public boolean contains(double x, double y) {
+        Numbers.requireNonNaN(x);
+        Numbers.requireNonNaN(y);
 
         if (y > yDelimiter) {
             return (y <= yMax) && contains(xMin1, xMax1, x);
@@ -44,49 +53,5 @@ public class Figure {
 
     public static boolean contains(double min, double max, double x) {
         return x >= min && x <= max;
-    }
-
-    public static void main(String[] args) {
-        final String cancel = "cancel";
-        String help =
-                        "                     |y\n" +
-                        "                     |\n" +
-                        "                     | yMax\n" +
-                        "               ______|______\n" +
-                        "               |     |     | x1\n" +
-                        "               |     |     |\n" +
-                        "               |     |     |              x\n" +
-                        "_______________|_____|_____|_________________\n" +
-                        "          |          |  x, y    |\n" +
-                        "          |          |   .      | x2\n" +
-                        "          |__________|__________|\n" +
-                        "                     |  yMin\n" +
-                        "                     |\n" +
-                        "                     |";
-
-        System.out.println(help);
-        Scanner scanner = new Scanner(System.in);
-        try {
-            double yMin = Input.readDouble(scanner, "Enter yMin: ", cancel);
-            double yMax = Input.readDouble(scanner, "Enter yMax: ", cancel);
-
-            double x1 = Input.readDouble(scanner, "Enter x1: ", cancel);
-            double x2 = Input.readDouble(scanner, "Enter x2: ", cancel);
-
-            while (true) {
-                System.out.println("Do you want to check the point? [Yes=yes,No=other]");
-                String token = scanner.nextLine();
-                if (!"yes".equals(token))
-                    break;
-                double x = Input.readDouble(scanner, "Enter x: ", cancel);
-                double y = Input.readDouble(scanner, "Enter y: ", cancel);
-
-                boolean contains = contains(yMin, yMax, x1, x2, x, y);
-                System.out.println("Contains? " + contains);
-            }
-        } catch (IllegalArgumentException e) {
-            System.err.println("Figure creation error");
-        } catch (CancellationException ignored) {
-        }
     }
 }

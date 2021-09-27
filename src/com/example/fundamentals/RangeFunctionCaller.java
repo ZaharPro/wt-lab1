@@ -1,19 +1,16 @@
 package com.example.fundamentals;
 
-import com.example.fundamentals.utils.Input;
 import com.example.fundamentals.utils.Numbers;
 
 import java.util.Objects;
-import java.util.Scanner;
-import java.util.concurrent.CancellationException;
 import java.util.function.DoubleUnaryOperator;
 
 public class RangeFunctionCaller {
-    public static void callFunctionOnRange(DoubleUnaryOperator function,
-                                           double a, double b, double h,
-                                           DoubleBiConsumer callback) {
+    private final DoubleUnaryOperator function;
+    private final double a, b, h;
+
+    public RangeFunctionCaller(DoubleUnaryOperator function, double a, double b, double h) {
         Objects.requireNonNull(function);
-        Objects.requireNonNull(callback);
 
         Numbers.requireNonNaN(a);
         Numbers.requireNonNaN(b);
@@ -23,31 +20,16 @@ public class RangeFunctionCaller {
 
         Numbers.requireNonNegative(h);
 
-        while (a < b) {
-            callback.accept(a, function.applyAsDouble(a));
-            a += h;
-        }
+        this.function = function;
+        this.a = a;
+        this.b = b;
+        this.h = h;
     }
 
-    public static void callFunctionOnRange(double a, double b, double h) {
-        callFunctionOnRange(Math::tan, a, b, h, (x, y) -> {
-            System.out.printf("x = %.5f, F(x) = %.5f \n", x, y);
-        });
-    }
-
-    public static void main(String[] args) {
-        try {
-            String cancel = "cancel";
-            Scanner scanner = new Scanner(System.in);
-
-            double a = Input.readDouble(scanner, "Enter a:", cancel);
-            double b = Input.readDouble(scanner, "Enter b:", cancel);
-            double h = Input.readDouble(scanner, "Enter h:", cancel);
-
-            callFunctionOnRange(a, b, h);
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage() == null ? "Error" : e.getMessage());
-        } catch (CancellationException ignored) {
+    public void callFunctionOnRange(DoubleBiConsumer callback) {
+        Objects.requireNonNull(callback);
+        for (double x = a; x < b; x += h) {
+            callback.accept(x, function.applyAsDouble(x));
         }
     }
 }

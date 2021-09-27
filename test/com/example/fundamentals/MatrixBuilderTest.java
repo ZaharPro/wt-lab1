@@ -22,7 +22,7 @@ class MatrixBuilderTest {
         };
 
 
-        double[][] actual = MatrixBuilder.buildMatrix(src);
+        double[][] actual = new MatrixBuilder(src).build();
 
         Assertions.assertEquals(expected.length, actual.length);
 

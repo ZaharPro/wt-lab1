@@ -1,22 +1,34 @@
 package com.example.fundamentals;
 
-import com.example.fundamentals.utils.Input;
 import com.example.fundamentals.utils.Numbers;
 
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Merger {
-    public static double[] merge(double[] a, int from1, int to1,
-                                 double[] b, int from2, int to2,
-                                 DoubleComparator comparator) {
+    private final double[] a;
+    private final int from1, to1;
+    private final double[] b;
+    private final int from2, to2;
+    private final DoubleComparator comparator;
+
+    public Merger(double[] a, int from1, int to1,
+                  double[] b, int from2, int to2,
+                  DoubleComparator comparator) {
         Objects.requireNonNull(a);
         Objects.checkFromToIndex(from1, to1, a.length);
 
         Objects.requireNonNull(b);
         Objects.checkFromToIndex(from2, to2, b.length);
+        this.a = a;
+        this.from1 = from1;
+        this.to1 = to1;
+        this.b = b;
+        this.from2 = from2;
+        this.to2 = to2;
+        this.comparator = comparator;
+    }
 
+    public double[] merge() {
         int len = (to1 - from1) + (to2 - from2);
 
         if (len == 0)
@@ -38,29 +50,5 @@ public class Merger {
             resultSize++;
         }
         return array;
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter sorted array");
-        double[] a = Input.readArray(scanner);
-
-        System.out.println("Enter sorted array");
-        double[] b = Input.readArray(scanner);
-
-        System.out.println("First array");
-        System.out.println(Arrays.toString(a));
-
-        System.out.println("Second array");
-        System.out.println(Arrays.toString(b));
-
-        double[] merge = merge(
-                a, 0, a.length,
-                b, 0, b.length,
-                DoubleComparator.NORMAL);
-
-        System.out.println("Merged array");
-        System.out.println(Arrays.toString(merge));
     }
 }

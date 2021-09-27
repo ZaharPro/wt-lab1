@@ -1,13 +1,9 @@
 package com.example.fundamentals;
 
-import com.example.fundamentals.utils.Input;
 import com.example.fundamentals.utils.Numbers;
 
-import java.util.Scanner;
-import java.util.concurrent.CancellationException;
-
 public class MathFun {
-    public static double calc(double x, double y) {
+    public double calc(double x, double y) {
         Numbers.requireNonNaN(x);
         Numbers.requireNonNaN(y);
 
@@ -19,16 +15,5 @@ public class MathFun {
         double b = 2 + Math.abs(toAbs);
 
         return (a / b) + x;
-    }
-
-    public static void main(String[] args) {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            String cancel = "cancel";
-            double x = Input.readDouble(scanner, "Enter x", cancel);
-            double y = Input.readDouble(scanner, "Enter y", cancel);
-            System.out.println("F(x, y)=" + calc(x, y));
-        } catch (CancellationException ignored) {
-        }
     }
 }

@@ -1,8 +1,8 @@
 package com.example.classes;
 
-import com.example.classes.BasketBall.Ball;
-import com.example.classes.BasketBall.Basket;
-import com.example.classes.BasketBall.Color;
+import com.example.classes.BasketBall.Lib.Ball;
+import com.example.classes.BasketBall.Lib.Basket;
+import com.example.classes.BasketBall.Lib.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

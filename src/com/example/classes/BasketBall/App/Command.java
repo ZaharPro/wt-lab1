@@ -1,4 +1,4 @@
-package com.example.classes.BasketBall;
+package com.example.classes.BasketBall.App;
 
 enum Command {
     HELP("help", "print command list"),

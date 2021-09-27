@@ -1,5 +1,8 @@
-package com.example.classes.BasketBall;
+package com.example.classes.BasketBall.App;
 
+import com.example.classes.BasketBall.Lib.Ball;
+import com.example.classes.BasketBall.Lib.Basket;
+import com.example.classes.BasketBall.Lib.Color;
 import com.example.fundamentals.utils.Input;
 
 import java.io.PrintStream;
@@ -38,8 +41,8 @@ class Task implements Runnable {
                     out.println("Enter command");
                     String token = scanner.nextLine();
                     Optional<Command> optionalCommand = Arrays.stream(Command.values()).
-                            filter(c -> c.getKey().
-                                    equals(token)).findFirst();
+                            filter(c -> c.getKey().equals(token)).
+                            findFirst();
                     if (optionalCommand.isEmpty()) {
                         err.println("Invalid command");
                     } else {

@@ -1,4 +1,4 @@
-package com.example.classes.BasketBall;
+package com.example.classes.BasketBall.Lib;
 
 import java.util.ArrayList;
 import java.util.Collection;

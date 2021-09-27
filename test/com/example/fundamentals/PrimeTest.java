@@ -10,7 +10,7 @@ class PrimeTest {
     void primeNumberIndexes() {
         int[] numbers = {2, 4, 3, 7, 6, 9, 11, 23, 66, 54, 41, 123412400};
         int[] expect = {0, 2, 3, 6, 7, 10};
-        Assertions.assertArrayEquals(expect, Prime.primeNumberIndexes(numbers));
+        Assertions.assertArrayEquals(expect, new Prime(numbers).primeNumberIndexes());
     }
 
     @Test

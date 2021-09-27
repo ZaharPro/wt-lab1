@@ -1,11 +1,14 @@
-package com.example.classes.BasketBall;
+package com.example.classes.BasketBall.App;
+
+import com.example.classes.BasketBall.Lib.Basket;
+import com.example.classes.BasketBall.Lib.Color;
 
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Main {
+public class BasketBallApp {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         PrintStream out = System.out;

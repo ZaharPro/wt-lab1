@@ -16,7 +16,7 @@ class MergerTest {
         System.arraycopy(b, 0, expected, a.length, b.length);
         Arrays.sort(expected);
 
-        double[] actual = Merger.merge(a, 0, a.length, b, 0, b.length, DoubleComparator.NORMAL);
+        double[] actual = new Merger(a, 0, a.length, b, 0, b.length, DoubleComparator.NORMAL).merge();
 
         Assertions.assertArrayEquals(expected, actual);
     }

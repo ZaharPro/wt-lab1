@@ -33,18 +33,5 @@ public class Sorting {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            double[] array = Input.readArray(scanner);
-            System.out.println("Your array:");
-            System.out.println(Arrays.toString(array));
 
-            sort(array, DoubleComparator.NORMAL);
-
-            System.out.println("Sorted array:");
-            System.out.println(Arrays.toString(array));
-        } catch (CancellationException ignored) {
-        }
-    }
 }
